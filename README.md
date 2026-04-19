@@ -74,11 +74,6 @@ Expected: `HTTP 200` with `room_name`, `token`, and `session_id`.
 4. Confirm the agent responds in voice.
 5. Confirm fields update in realtime while speaking.
 
-## Notes
-
-1. `Unchecked runtime.lastError` at page load is usually from a browser extension, not app logic.
-2. `installHook.js` references come from React DevTools wrappers.
-3. PyTorch is optional for your current flow. If you later hit explicit torch runtime errors:
 
 ```bash
 cd /d/atom/jobai/agent
