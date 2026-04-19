@@ -1,0 +1,63 @@
+# -----------------------------
+# Environment files and secrets
+# -----------------------------
+.env
+.env.*
+*.env
+!*.env.example
+!**/.env.example
+
+# -----------------------------
+# Python
+# -----------------------------
+__pycache__/
+**/__pycache__/
+*.pyc
+*.pyo
+*.pyd
+*.py[cod]
+*.py,cover
+
+# Virtual environments
+.venv/
+**/.venv/
+venv/
+**/venv/
+
+# Python tooling caches and reports
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+coverage.xml
+htmlcov/
+
+# -----------------------------
+# Node / frontend
+# -----------------------------
+node_modules/
+**/node_modules/
+dist/
+**/dist/
+build/
+**/build/
+.cache/
+
+# -----------------------------
+# Logs and runtime artifacts
+# -----------------------------
+logs/
+*.log
+
+# -----------------------------
+# IDE and OS files
+# -----------------------------
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+/docs
+# -----------------------------
+# Notebooks
+# -----------------------------
+.ipynb_checkpoints/

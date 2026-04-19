@@ -1,0 +1,241 @@
+/* frontend/src/components/voice/voice-assistant.css */
+
+/* ── Panel layout ──────────────────────────────────────────────────────────── */
+.va-panel {
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+  background: #ffffff;
+  box-shadow: 0 4px 6px -1px rgba(0,0,0,0.07);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  min-height: 320px;
+  max-height: 600px;
+}
+.va-panel__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 20px;
+  border-bottom: 1px solid #f3f4f6;
+  background: #f9fafb;
+}
+.va-panel__title {
+  font-size: 15px;
+  font-weight: 600;
+  color: #111827;
+  margin: 0;
+}
+.va-panel__body {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+  gap: 16px;
+  overflow: hidden;
+}
+.va-panel__footer {
+  padding: 16px 20px;
+  border-top: 1px solid #f3f4f6;
+}
+
+/* ── Status badge ──────────────────────────────────────────────────────────── */
+.va-status {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 13px;
+}
+.va-status__dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  flex-shrink: 0;
+  transition: background-color 0.3s ease;
+}
+.va-status__label { color: #6b7280; font-weight: 500; }
+.va-status__error {
+  color: #ef4444;
+  font-size: 12px;
+  margin-left: 4px;
+  max-width: 200px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* ── Agent speaking orb ────────────────────────────────────────────────────── */
+.va-agent-orb-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+.va-agent-orb {
+  position: relative;
+  width: 72px;
+  height: 72px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.va-agent-orb__core {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: #6366f1;
+  position: relative;
+  z-index: 2;
+  transition: transform 0.2s ease;
+}
+.va-agent-orb__ring {
+  position: absolute;
+  border-radius: 50%;
+  border: 2px solid #6366f1;
+  opacity: 0;
+}
+.va-agent-orb__ring--1 { width: 60px; height: 60px; }
+.va-agent-orb__ring--2 { width: 72px; height: 72px; }
+
+/* Listening state — gentle idle pulse */
+@keyframes va-pulse-idle {
+  0%, 100% { opacity: 0.15; transform: scale(1); }
+  50%       { opacity: 0.3;  transform: scale(1.05); }
+}
+.va-agent-orb--listening .va-agent-orb__ring--1 {
+  animation: va-pulse-idle 3s ease-in-out infinite;
+}
+
+/* Speaking state — active multi-ring pulse */
+@keyframes va-pulse-speak-1 {
+  0%   { opacity: 0.6; transform: scale(1); }
+  100% { opacity: 0;   transform: scale(1.4); }
+}
+@keyframes va-pulse-speak-2 {
+  0%   { opacity: 0.4; transform: scale(1); }
+  100% { opacity: 0;   transform: scale(1.6); }
+}
+.va-agent-orb--speaking .va-agent-orb__core {
+  transform: scale(1.08);
+  background: #4f46e5;
+}
+.va-agent-orb--speaking .va-agent-orb__ring--1 {
+  animation: va-pulse-speak-1 1.2s ease-out infinite;
+  opacity: 0.6;
+}
+.va-agent-orb--speaking .va-agent-orb__ring--2 {
+  animation: va-pulse-speak-2 1.2s ease-out 0.3s infinite;
+  opacity: 0.4;
+}
+.va-agent-orb__label {
+  font-size: 12px;
+  color: #9ca3af;
+  margin: 0;
+  font-weight: 500;
+}
+
+/* ── Transcript ────────────────────────────────────────────────────────────── */
+.va-transcript {
+  width: 100%;
+  flex: 1;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 4px 0;
+  scroll-behavior: smooth;
+}
+.va-transcript--empty {
+  align-items: center;
+  justify-content: center;
+  color: #9ca3af;
+  font-size: 13px;
+  font-style: italic;
+}
+.va-transcript__entry {
+  display: flex;
+  flex-direction: column;
+  max-width: 82%;
+  gap: 3px;
+}
+.va-transcript__entry--agent {
+  align-self: flex-start;
+  align-items: flex-start;
+}
+.va-transcript__entry--user {
+  align-self: flex-end;
+  align-items: flex-end;
+}
+.va-transcript__role {
+  font-size: 11px;
+  font-weight: 600;
+  color: #9ca3af;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+.va-transcript__text {
+  margin: 0;
+  padding: 10px 14px;
+  border-radius: 12px;
+  font-size: 14px;
+  line-height: 1.5;
+}
+.va-transcript__entry--agent .va-transcript__text {
+  background: #f3f4f6;
+  color: #111827;
+  border-bottom-left-radius: 4px;
+}
+.va-transcript__entry--user .va-transcript__text {
+  background: #6366f1;
+  color: #ffffff;
+  border-bottom-right-radius: 4px;
+}
+.va-transcript__text--partial {
+  opacity: 0.65;
+  font-style: italic;
+}
+.va-transcript__time {
+  font-size: 10px;
+  color: #d1d5db;
+}
+
+/* ── Controls ──────────────────────────────────────────────────────────────── */
+.va-controls {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+.va-btn {
+  padding: 10px 20px;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  border: none;
+  transition: background 0.15s ease, opacity 0.15s ease;
+  white-space: nowrap;
+}
+.va-btn:disabled { opacity: 0.55; cursor: not-allowed; }
+.va-btn--start   { background: #6366f1; color: #fff; }
+.va-btn--start:hover:not(:disabled) { background: #4f46e5; }
+.va-btn--end     { background: #fee2e2; color: #dc2626; }
+.va-btn--end:hover:not(:disabled)   { background: #fecaca; }
+.va-btn--mic     { background: #f3f4f6; color: #374151; }
+.va-btn--mic:hover:not(:disabled)   { background: #e5e7eb; }
+.va-btn--muted   { background: #fef3c7; color: #92400e; }
+.va-btn--muted:hover:not(:disabled) { background: #fde68a; }
+.va-btn--busy    { background: #f3f4f6; color: #9ca3af; }
+
+/* ── Field-updated highlight animation ─────────────────────────────────────── */
+/* Apply class "va-field-updated" to any form field when it is updated by voice */
+@keyframes va-field-flash {
+  0%   { background-color: #ecfdf5; }
+  60%  { background-color: #d1fae5; }
+  100% { background-color: transparent; }
+}
+.va-field-updated {
+  animation: va-field-flash 1.8s ease-out forwards;
+}
